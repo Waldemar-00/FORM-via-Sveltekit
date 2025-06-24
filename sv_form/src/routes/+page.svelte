@@ -1,33 +1,34 @@
 <script>
 // @ts-nocheck
-
+    import PouchDB from 'pouchdb'
+    import {LocalTodosDB} from '$lib/client/pouchDB'
     import './styles.css'
-    import {todos, localTodosDB,  getAllTodos} from '$lib/client/pouchDB'
 
-    let reactTodos = $state(todos)
-    $inspect( todos )
-    async function deleteTodo(id) {
-	try {
-		const doc = await localTodosDB.get(id);
-		await localTodosDB.remove(doc);
-		// localTodosDB.compact();
-        reactTodos = await getAllTodos()
-	} catch (err) {
-		console.error('Remove ERROR:', err);
-	}
-}
+    let reactTodos = $state([])
+    let value = $state('')
+    const localTodosDB = new PouchDB('localTodos')
+    const DB = new LocalTodosDB(localTodosDB)
+    DB.getAllTodos().then(todos => {reactTodos = todos})
 </script>
 <h1>Welcome to SvelteKit</h1>
 <h3>Fill out the form below</h3>
 
-<form method="POST">
+<form>
     <label title="write todo">
-        <input type="text" placeholder="add a todo" name='todo'>
+        <input type="text" placeholder="add a todo" name='todo' bind:value onchange={async () => {
+            await DB.addTodo(crypto.randomUUID(), value, false)
+            DB.getAllTodos().then(todos => {reactTodos = todos})
+        }}>
     </label>
 </form>
 
 <ul>
-    {#each reactTodos as t (t)}
-        <li>{t.todo} <button onclick={() => deleteTodo(t._id)}>delete</button></li>
+    {#each reactTodos as t (t._id)}
+        <li>{t.todo} <button onclick={async () => {
+            await DB.deleteTodo(t._id)
+            DB.getAllTodos().then(todos => {
+                reactTodos = todos
+            })
+        }}>delete</button></li>
     {/each}
 </ul>

@@ -5,3 +5,6 @@ body {
 	align-items: center;
 	color: rgb(0, 77, 0);
 }
+ul {
+	list-style: none;
+}

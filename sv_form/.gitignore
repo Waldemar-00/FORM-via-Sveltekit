@@ -1,8 +1,7 @@
 node_modules
 
 #PouchDB
-localTodos
-
+todos
 # Output
 .output
 .vercel

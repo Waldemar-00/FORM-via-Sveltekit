@@ -1,13 +1,34 @@
 <script>
 // @ts-nocheck
+    import './styles.css'
     import PouchDB from 'pouchdb'
     import {LocalTodosDB} from '$lib/client/pouchDB'
-    import './styles.css'
 
     let reactTodos = $state([])
     let value = $state('')
+    const localTodosDB = new PouchDB('todos')
+    const remoteDB = new PouchDB('/');
 
-    const localTodosDB = new PouchDB('localTodos')
+localTodosDB
+	.sync(remoteDB, {
+		live: true,
+		retry: true
+	})
+	.on('change', function (info) {
+		console.log('Received changes:', info);
+	})
+	.on('paused', function (err) {
+		console.log("Paused");
+	})
+	.on('active', function () {
+		console.log('Sync is active');
+	})
+	.on('denied', function (err) {
+		console.error('No AUTH - denied:', err);
+	})
+	.on('error', function (err) {
+		console.error('Sync ERROR:', err);
+	});
     const DB = new LocalTodosDB(localTodosDB)
     DB.getAllTodos().then(todos => {reactTodos = todos})
 </script>

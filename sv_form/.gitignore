@@ -1,7 +1,9 @@
 node_modules
 
 #PouchDB
-todos
+pouchDB_todos
+couchDB_todos
+server_PouchDB_todos
 # Output
 .output
 .vercel

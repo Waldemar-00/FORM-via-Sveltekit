@@ -39,9 +39,27 @@ export class LocalTodosDB {
 	async getTodoById(id) {
 		return await this.#db.get(id);
 	}
-	async checkboxChanged(e, t) {
-		t.done = e.target.checked;
-		this.#db.put(t);
+	async toggleCheckbox(e, id) {
+		try {
+			const t = await this.getTodoById(id);
+			t.done = e.target.checked;
+			await this.#db.put(t);
+		} catch (error) {
+			if (error.name === 'conflict') {
+				toggleCheckbox(e, id);
+			} else console.log(`Error in fn toggleCheckbox: ${error.message}`);
+		}
+	}
+	async toggleCheckboxOnServer(checked, id) {
+		try {
+			const t = await this.getTodoById(id);
+			t.done = checked;
+			await this.#db.put(t);
+		} catch (error) {
+			if (error.name === 'conflict') {
+				toggleCheckboxOnServer(checked, id);
+			} else console.log(`Error in fn toggleCheckbox: ${error.message}`);
+		}
 	}
 }
 // localTodosDB.compact(); no update CouchDB

@@ -1,13 +1,14 @@
-// import { addTodo, getTodoById } from '$lib/client/pouchDB';
+// import { ADMIN, PASSWORD } from '$env/static/private';
+// import { json } from '@sveltejs/kit';
+// const btoa = (str: string) => Buffer.from(str, 'utf-8').toString('base64');
+// export const GET = async ({ fetch }) => {
+// 	const response = await fetch(`http://localhost:5984/todos`, {
+// 		headers: {
+// 			Authorization: 'Basic ' + btoa(`${ADMIN}:${PASSWORD}`)
+// 		}
+// 	});
+// 	console.log(response.ok, 'SERVER');
+// 	const data = await response.json();
 
-// async function example() {
-// 	const id = await addTodo();
-// 	const todo = await getTodoById(id);
-// 	return todo;
-// }
-// export const GET = async () => {
-// 	const todo = await example();
-// 	return {
-// 		todo
-// 	};
+// 	return json(data);
 // };

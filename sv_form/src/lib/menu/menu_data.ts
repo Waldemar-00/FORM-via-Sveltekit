@@ -1,0 +1,1 @@
+export const anchors = ['home', 'pouch', 'sv_actions' ]

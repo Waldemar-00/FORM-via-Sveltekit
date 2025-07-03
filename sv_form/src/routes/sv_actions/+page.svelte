@@ -1,10 +1,9 @@
 <script>
      import '../styles.css'
+     import {enhance} from '$app/forms'
      let {data} = $props()
-     let form = $state()
-     $inspect(data)
 </script>
-<h1>Actions</h1>
+<h2>Actions</h2>
 
 
 <form method="POST" action='?/addTodo'>
@@ -18,7 +17,7 @@
     {#each data.db as t (t._id)}
 
         <li>
-            <form method="POST" action="?/toggleCheckboxOnServer" bind:this={form}>
+            <form method="POST" action="?/toggleCheckboxOnServer" use:enhance>
                 <input type="hidden" name="id" value={t._id}>
                 <!-- svelte-ignore a11y_consider_explicit_label -->
                 <input type="checkbox" checked={t.done} name='toggleCheckbox' value={t.done} onchange={(e) => e.target.form.requestSubmit()}>
@@ -36,3 +35,19 @@
         </li>
     {/each}
 </ul>
+<style>
+    li {
+        display: flex;
+        gap: 0.7rem;
+    }
+    li div {
+        min-width: 30vw;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem 1.5rem;
+        border: 1px solid #eee;
+        border-radius: 3px;
+        margin-bottom: 0.5rem;
+    }
+</style>

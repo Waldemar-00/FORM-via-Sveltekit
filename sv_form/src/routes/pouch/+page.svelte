@@ -33,8 +33,7 @@
         //     console.error('Sync ERROR:', err);
         // });
 </script>
-<h1>Welcome to SvelteKit</h1>
-<h3>Fill out the form below</h3>
+<h2>Fill out the form below</h2>
 
 <form>
     <label title="write todo">
@@ -63,3 +62,19 @@
         </li>
     {/each}
 </ul>
+<style>
+    li {
+        display: flex;
+        gap: 0.7rem;
+    }
+    li div {
+        min-width: 30vw;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem 1.5rem;
+        border: 1px solid #eee;
+        border-radius: 3px;
+        margin-bottom: 0.5rem;
+    }
+</style>

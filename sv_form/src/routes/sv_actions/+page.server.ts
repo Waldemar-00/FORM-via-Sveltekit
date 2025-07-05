@@ -51,7 +51,7 @@ export const actions = {
 		const checked = checkbox.get('toggleCheckbox');
 		const id = checkbox.get('id');
 		try {
-			throw id;
+			// throw id;
 			if (checked) await DB.toggleCheckboxOnServer(true, id);
 			else await DB.toggleCheckboxOnServer(false, id);
 		} catch (error) {

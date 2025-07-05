@@ -11,7 +11,7 @@
     const DB = new LocalTodosDB(localTodosDB)
     DB.getAllTodos().then(todos => {reactTodos = todos})
     const btoa = (str) => Buffer.from(str, 'utf-8').toString('base64');
-    const remoteDB = new PouchDB(`http://admin:password@localhost:5984/todos`);
+    const remoteDB = new PouchDB(`http://admin:password@localhost:5984/todos`, {skip_setup: true});
     localTodosDB
         .sync(remoteDB, {
             live: true,

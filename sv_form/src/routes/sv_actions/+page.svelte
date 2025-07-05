@@ -11,7 +11,7 @@
     <h2><pre>{form?.error}</pre></h2>
 </div>
 {/if}
-<form method="POST" action='?/addTodo'>
+<form method="POST" action='?/addTodo' use:enhance data-sveltekit-noscroll>
     <label title="write todo">
         <!-- svelte-ignore a11y_autofocus -->
         <input type="text" placeholder="add a todo" name='todo' autofocus>
@@ -22,14 +22,14 @@
     {#each data.db as t (t._id)}
 
         <li>
-            <form method="POST" action="?/toggleCheckboxOnServer" use:enhance>
+            <form method="POST" action="?/toggleCheckboxOnServer" use:enhance data-sveltekit-noscroll>
                 <input type="hidden" name="id" value={t._id}>
                 <!-- svelte-ignore a11y_consider_explicit_label -->
-                <input type="checkbox" checked={t.done} name='toggleCheckbox' value={t.done} onchange={(e) => e.target.form.requestSubmit()}>
+                <input type="checkbox" checked={t.done} name='toggleCheckbox' value={t.done} onchange={(e) => e.target?.form.requestSubmit()}>
             </form>
             <div>
                 <span>{t.todo}</span>
-            <form method="POST" action='?/deleteTodo'>
+            <form method="POST" action='?/deleteTodo' use:enhance data-sveltekit-noscroll>
                 <label title="delete todo">
                     <!-- svelte-ignore a11y_autofocus -->
                     <input type="hidden" name="id" value={t._id}>
